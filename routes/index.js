@@ -6,9 +6,19 @@ var rp = require('request-promise');
 /* GET home page. */
 router.get('/', function(req, res) {
 
+  var ipAddr = req.headers["x-forwarded-for"];
+  if (ipAddr){
+    var list = ipAddr.split(",");
+    ipAddr = list[list.length-1];
+  } else {
+    ipAddr = req.connection.remoteAddress;
+  }
+
   var data = {
-    text: "@channel Ring Ring!!!! IP: " + req.ip
+    text: "@channel Ring Ring!!!! IP: " + ipAddr
   };
+
+
 
   var options = {
     method: 'POST',
