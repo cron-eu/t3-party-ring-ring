@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var whois = require('whois');
 
 var rp = require('request-promise');
 
@@ -14,26 +15,31 @@ router.get('/', function(req, res) {
     ipAddr = req.connection.remoteAddress;
   }
 
-  var data = {
-    text: "@channel Ring Ring!!!! IP: " + ipAddr
-  };
 
-  var options = {
-    method: 'POST',
-    body: data,
-    uri: 'https://hooks.slack.com/services/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',
-    json: true
-  };
+  whois.lookup(ipAddr, function (err, whois) {
 
-  rp(options)
-    .then(function (date) {
-      console.log(data);
-      res.render('index', { message: 'Ring Ring!!!' });
-    })
-    .catch(function (err) {
-      console.log(err.message);
-      res.render('index', { message: 'Sorry :(' });
-    });
+    var data = {
+      text: "@channel Ring Ring!!!! IP: " + ipAddr + "\nWHOIS: " + whois
+    };
+
+    var options = {
+      method: 'POST',
+      body: data,
+      uri: 'https://hooks.slack.com/services/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',
+      json: true
+    };
+
+    rp(options)
+      .then(function (date) {
+        console.log(data);
+        res.render('index', { message: 'Ring Ring!!!' });
+      })
+      .catch(function (err) {
+        console.log(err.message);
+        res.render('index', { message: 'Sorry :(' });
+      });
+  });
+
 });
 
 module.exports = router;
