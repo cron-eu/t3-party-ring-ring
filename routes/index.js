@@ -18,8 +18,6 @@ router.get('/', function(req, res) {
     text: "@channel Ring Ring!!!! IP: " + ipAddr
   };
 
-
-
   var options = {
     method: 'POST',
     body: data,
