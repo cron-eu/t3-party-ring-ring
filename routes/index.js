@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
   whois.lookup(ipAddr, function (err, whois) {
 
     var data = {
-      text: "@channel Ring Ring!!!! IP: " + ipAddr + "\nWHOIS: " + whois
+      text: "Hey <!here|here>, Ring Ring!!!! IP: " + ipAddr + "\nWHOIS: " + whois
     };
 
     var options = {
