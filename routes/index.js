@@ -7,7 +7,7 @@ var rp = require('request-promise');
 router.get('/', function(req, res) {
 
   var data = {
-    text: "@channel Ring Ring!!!!"
+    text: "@channel Ring Ring!!!! IP: " + req.ip
   };
 
   var options = {
